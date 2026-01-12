@@ -1,1 +1,79 @@
+# Advanced Machine Learning Project - Leukemia Risk Prediction
+
+## How to Recreate Results
+
+To reproduce the results obtained in this project (example : `benchmark_submission_v1.csv`), please follow these steps strictly :
+
+### 1. Environment Setup
+
+It is recommended to use a virtual environment or Conda environment to avoid conflicts.
+
+```bash
+# Clone the repository (if not already done)
+git clone git@github.com:nounouprog/advanced_machine_learning.git
+cd advanced_machine_learning
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Data Organization
+
+Verify that your directory structure matches the expected format : 
+
+```
+advanced_machine_learning/
+├── data/
+│   ├── raw_data/
+│   │   ├── clinical_train.csv
+│   │   ├── molecular_train.csv
+│   │   ├── target_train.csv
+│   │   ├── clinical_test.csv
+│   │   └── molecular_test.csv
+│   └── data_processed/     <-- (Created by notebook)
+├── submission/             <-- (Created by notebook)
+├── model_benchmark.ipynb
+├── model_deephit.ipynb
+├── model_nn.ipynb
+├── dataeng.ipynb
+└── requirements.txt
+```
+
+### 3. Data Processing Pipeline
+
+We have consolidated the data feature engineering process.
+
+1.  Open `dataeng.ipynb`.
+2.  **Execute the entire notebook**.
+    *   This notebook contains a robust pipeline that strictly separates training and testing phases.
+    *   It learns statistics (medians, scalers, PCA, Clusters) on the **Training set only**.
+    *   It then applies these learned transformations to the **Test set**.
+    *   The processed dataframes are typically used in memory or saved to `data/data_processed/` for model training : `df_ready_train` and `df_ready_test` variables for use in other notebooks
+
+### 4. Model Training & Prediction
+
+After running the data engineering pipeline, you can run any of the following models. Each will generate its own submission file in the `submission/` folder The submission files are used then in the website of the challenge to have an idea of the performance of the model (on the test set). Indeed we do not have the Y_test to calculate the metrics. We can only calculate the metrice on the train set.
+
+#### Available Models:
+
+1.  **`model_benchmark.ipynb`** (Baseline)
+    *   Runs a standard CoxPH or LightGBM model
+    *   Use 2 model:  one model based on dataeng data et one model base on other feature engineering
+    *   Generates: `submission/benchmark_submission_v1.csv` and `submission/benchmark_submission_v2.csv` : our results in our paper concern benchmark submission v2
+
+2.  **`model_deephit.ipynb`** (Deep Learning)
+    *   Runs the **DeepHit** model for survival analysis 
+    *   Generates a submission
+
+3.  **`model_nn.ipynb`** (Neural Network)
+    *   Runs a custom Neural Network approach 
+    *   Generates a submission
+
+**Steps:**
+1.  Open the desired notebook
+2.  Run all cells
+3.  Collect the corresponding CSV from the `submission/` folder and test the submission on the website of the challenge. (https://challengedata.ens.fr/challenges/162)
+
+
+
 
