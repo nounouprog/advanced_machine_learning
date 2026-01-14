@@ -32,6 +32,7 @@ advanced_machine_learning/
 │   │   └── molecular_test.csv
 │   └── data_processed/     <-- (Created by notebook)
 ├── submission/             <-- (Created by notebook)
+├── plots/                  <-- (Created by notebook)
 ├── model_benchmark.ipynb
 ├── model_deephit.ipynb
 ├── model_nn.ipynb
